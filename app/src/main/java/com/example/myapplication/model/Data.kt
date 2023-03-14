@@ -1,10 +1,10 @@
 package com.example.myapplication.model
 
 data class Data(
-    var num1: Int = 0,
-    var num2: Int = 0
+    var usrName: String? = null,
+    var password: String? = null
 ) {
-    fun calculation(): Int {
-        return num1 + num2
+    fun login(usrName: String?, password: String?): Boolean {
+        return usrName == "abc" && password == "1234"
     }
 }

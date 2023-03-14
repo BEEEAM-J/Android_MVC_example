@@ -5,30 +5,36 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
+import android.widget.Toast
 import com.example.myapplication.R
 import com.example.myapplication.model.Data
 
 class MainActivity : AppCompatActivity() {
+
+    private lateinit var data: Data
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val edt1 = findViewById<EditText>(R.id.edt1)
-        val edt2 = findViewById<EditText>(R.id.edt2)
-        val text1 = findViewById<TextView>(R.id.text1)
-        val btn1 = findViewById<Button>(R.id.btn1)
+        val edtId = findViewById<EditText>(R.id.edt_id)
+        val edtPassword = findViewById<EditText>(R.id.edt_password)
+        val btnLogin = findViewById<Button>(R.id.btn_login)
+        val tvResult = findViewById<TextView>(R.id.tv_result)
 
-        // 사용자로부터 입력을 받으면 그에 맞는 처리를 진행
-        btn1.setOnClickListener {
-            val data = Data()
-            edt1.text?.let {
-                data.num1 = it.toString().toInt()
+        data = Data()
+
+        btnLogin.setOnClickListener {
+            val loginStatus = data.login(
+                edtId.text.toString(),
+                edtPassword.text.toString()
+            )
+
+            if (loginStatus) {
+                tvResult.text = "성공!"
+            } else {
+                tvResult.text = "실패.."
             }
-            edt2.text?.let {
-                data.num2 = it.toString().toInt()
-            }
-            text1.text = "${data.calculation()}"
         }
-
     }
 }
